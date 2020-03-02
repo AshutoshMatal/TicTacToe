@@ -27,48 +27,47 @@ public class TicTacToe {
 		System.out.println("Computer : "+Computer);
 	}
 	//  TOSS AND WHO WILL PLAY FIRST
-	void toss()
+void toss()
+{
+	if(toss=="X")
 	{
-		if(toss=="X")
-		{
-			System.out.println("Player will  play first :"+player);
-		}
-		else
-		{
-			System.out.println("Computer will play first :"+Computer);
-		}
+		System.out.println("Player will  play first :"+player);
 	}
+	else
+	{
+		System.out.println("Computer will play first :"+Computer);
+	}
+}
 	// PLAYER WOULD SEE THE BOARD AND CHOICE THE VALID CELL 
-	 public  void resetBoard(char[][]gameboard)
+public  void resetBoard(char[][]gameboard)
+{	
+	for(char[]row:gameboard)
+	{
+		for (char c :row)
 		{
-				
-			 for(char[]row:gameboard)
-			 {
-				 for (char c :row)
-				 {
-					 System.out.print(c);
-				 }
-				 System.out.println();
-			 }	
-			
+			System.out.print(c);
 		}
-	public static void main(String[] args) {
-		System.out.println("Welcome to TicTacToe");
-		TicTacToe tt=new TicTacToe();
-		tt.assignLetter();
-		tt.toss();
-		char[][]gameboard={
+		System.out.println();
+	}		
+}
+public static void main(String[] args)
+{
+	System.out.println("Welcome to TicTacToe");
+	TicTacToe tt=new TicTacToe();
+	tt.assignLetter();
+	tt.toss();
+	char[][]gameboard={
 			 	{' ', '|',' ','|',' '},
 				{'_','+','_','+','_'},
 				{' ', '|',' ','|',' '},
 				{'_','+','_','+','_'},
 				{' ', '|',' ','|',' '}
 			};
-	
-	 Scanner sc=new Scanner(System.in);
-	 System.out.println("Enter the number (1-9):");
+	Scanner sc=new Scanner(System.in);
+	System.out.println("Enter the number (1-9):");
 	 int position=sc.nextInt();
 	 System.out.println(position);
+	 //TO SET A POSITION ON THE BOARD
 	  switch(position)
 	  {
 	  case 1:
@@ -100,13 +99,6 @@ public class TicTacToe {
 		  break;
 	  } 
 	  tt.resetBoard(gameboard);
-		
-		
-		
-		
-		
-		// TODO Auto-generated method stub
-
 	}
 
 }
