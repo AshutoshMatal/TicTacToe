@@ -1,6 +1,9 @@
 
 public class TicTacToe {
-
+//VARIABLES
+	String player;
+	String Letter;
+// METHOD FOR rESETTING THE BOARD
 	void resetBoard()
 	{	System.out.println(" "+"__"+"  "+"__"+"  "+"__");
 		for(int row=1;row<=3;row++)
@@ -11,12 +14,21 @@ public class TicTacToe {
 				System.out.print("__");
 				System.out.print("|");
 			}
-			//System.out.println("|");
-			System.out.println("");
-			
+			System.out.println("");	
 		}
-		
-
+	}
+	
+	// ASSIGING A LETTER  X AND O 
+	void assignLetter()
+	{
+		if(Letter=="X")
+		{
+			player="X";
+		}
+		else
+		{
+			player="O";
+		}
 	}
 	public static void main(String[] args) {
 		System.out.println("Welcome to TicTacToe");
