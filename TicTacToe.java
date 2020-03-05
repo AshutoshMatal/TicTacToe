@@ -1,154 +1,288 @@
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 
 public class TicTacToe {
-static ArrayList<Integer> playerPositions=new ArrayList<Integer>();
-//VARIABLES
-	String player;
-	String Letter;
-	String Computer;
-	String toss;
-	int num_Of_row=3;
-	int num_Of_cols=3;	
-// ASSIGING A LETTER  X AND O 
-void assignLetter()
+// VARIABLES
+    public static char player = 'X';
+    public static char computer = 'X';
+    //INITIALISING
+    public static char board[][] = new char[3][3];
+    public static int count = 0;
+// RESETTING A GAME BOARD
+    public static void Board()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                board[i][j] = '-';
+                System.out.print("   " + board[i][j] + "\t|");
+            }
+            System.out.println();
+        }
+    }
+// DISPLAYING THE GAME BOARD
+    public static void display_board()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+
+                System.out.print("   " + board[i][j] + "\t|");
+            }
+            System.out.println();
+        }
+        System.out.println("---------------------------------------------------------------");
+
+    }
+//  TIE CONDITION
+    public static void tie_condition()
+    {
+        if (count == 9)
+        {
+            System.out.println("Game is tie");
+        }
+    }
+    // WIN CONDITION
+public static void computer_win_condition()
 {
-	if(Letter=="X")
-	{
-		player="X";
-		Computer="O";
-	}
-	else
-	{
-		player="O";
-		Computer="X";
-	}
-	System.out.println("player   : "+player);
-	System.out.println("Computer : "+Computer);
-}
-	//  TOSS AND WHO WILL PLAY FIRST
-void toss()
+System.out.println("computer turn:");
+int x = (int) (Math.random() * (3 - 0));
+    int y = (int) (Math.random() * (3 - 0));
+if (board[x][y] == '-')
 {
-	if(toss=="X")
-	{
-		System.out.println("Player will  play first :"+player);
-	}
-	else
-	{
-		System.out.println("Computer will play first :"+Computer);
-	}
-}
-	// PLAYER WOULD SEE THE BOARD AND CHOICE THE VALID CELL 
-public  void resetBoard(char[][]gameboard)
-{	
-	for(char[]row:gameboard)
-	{
-		for (char c :row)
-		{
-			System.out.print(c);
-		}
-		System.out.println();
-	}		
-}
-//
-public static String checkWin()
+//FOR LOOP IS USE TO TRAVERSE THE ROW THEN COLUMN AND THE TWO DAIGONALS
+for (int i = 0; i < 3; i++)
 {
-	List topRow=Arrays.asList(1, 2, 3);
-	List middleRow=Arrays.asList(4, 5, 6);
-	List bottomRow=Arrays.asList(7, 8, 9);
-	List firstCol=Arrays.asList(1, 4, 7);
-	List middleCol=Arrays.asList(2, 5, 8);
-	List lastCol=Arrays.asList(3, 6, 9);
-	List cross1=Arrays.asList(1, 5, 9);
-	List cross2=Arrays.asList(3, 5, 7);
-	
-	List <List>winposition=new ArrayList<List>();
-	winposition.add(topRow);
-	winposition.add(middleRow);
-	winposition.add(bottomRow);
-	winposition.add(firstCol);
-	winposition.add(middleCol);
-	winposition.add(lastCol);
-	winposition.add(cross1);
-	winposition.add(cross2);
-	for(List l:winposition)
-	{
-		if(playerPositions.containsAll(l))
-		{
-			return "Congratulations you WON!!!!!!!";
-		}
-	}
-	return "";
-	
+        int j = 0;
+        char Horizontal[] = { board[i][j], board[i][j + 1], board[i][j + 2] }; //ROW
+        char vertical[] = { board[j][i], board[j + 1][i], board[j + 2][i] }; //COLUMN
+        char firstDiagonal[] = { board[0][0], board[1][1], board[2][2] }; //FIRST DAIGONAL
+        char secondDiagnol[] = { board[0][2], board[1][1], board[2][0] }; //SECOND DAIGONAL
+       
+        char H1[] = { computer, computer, '-' };
+        char H2[] = { computer, '-', computer };
+        char H3[] = { '-', computer, computer };
+    //FOR ALL THE ROW AND COLUMN AND THE DAIGONALS ALL THE FUNCTIONS ARE USED
+            if (Arrays.equals(Horizontal, H1))
+            {
+                board[i][j + 2] = computer;
+                display_board(); //DISPLAY FUNCTION IS CALL
+                count++;
+                tie_condition(); //TIE CONDITION FUNCTION IS CALL
+                check_winner(); //CHECK WINNER FUNCTION IS CALL
+                playerTurn(); //PLAYER TURN FUNCTION IS CALL
+            }
+            else if (Arrays.equals(Horizontal, H2))
+            {
+           
+                board[i][j + 1] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            }
+            else if (Arrays.equals(Horizontal, H3))
+            {
+                board[i][j] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            }
+            else if (Arrays.equals(vertical, H1))
+            {
+                board[j + 2][i] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            } else if (Arrays.equals(vertical, H2))
+            {
+                board[j + 1][i] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            } else if (Arrays.equals(vertical, H3))
+            {
+                board[j][i] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            }
+            else if (Arrays.equals(firstDiagonal, H1))
+            {
+                board[2][2] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            }
+            else if (Arrays.equals(firstDiagonal, H2))
+            {
+                board[1][1] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            }
+            else if (Arrays.equals(firstDiagonal, H3))
+            {
+                board[0][0] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            }
+            else if (Arrays.equals(secondDiagnol, H1))
+            {
+                board[2][0] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            } else if (Arrays.equals(secondDiagnol, H2))
+            {
+                board[1][1] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            }
+            else if (Arrays.equals(secondDiagnol, H3))
+            {
+                board[0][2] = computer;
+                display_board();
+                count++;
+                tie_condition();
+                check_winner();
+                playerTurn();
+            }
 }
-void placePieace(char[][]gameboard,int position,String user)
-{   
-	char Symbol='X';
-	if(user.equals(player));
-	{
-	Symbol='X';
-	playerPositions.add(position);
-	}
-	//TO SET A POSITION ON THE BOARD
-	  switch(position)
-	  {
-	  case 1:
-		  gameboard[0][0]=Symbol;
-		  break;
-	  case 2:
-		  gameboard[0][2]=Symbol;
-		  break;
-	  case 3:
-		  gameboard[0][4]=Symbol;
-		  break;
-	  case 4:
-		  gameboard[2][0]=Symbol;
-		  break;
-	  case 5:
-		  gameboard[2][2]=Symbol;
-		  break;
-	  case 6:
-		  gameboard[2][4]=Symbol;
-		  break;
-	  case 7:
-		  gameboard[4][0]=Symbol;
-		  break;
-	  case 8:
-		  gameboard[4][2]=Symbol;
-		  break;
-	  case 9:
-		  gameboard[4][4]=Symbol;
-		  break;
-	  default:
-		  break;
-	  } 
-}
-public static void main(String[] args)
+            board[x][y] = computer;
+            display_board();
+            count++;
+           tie_condition();
+            check_winner();
+            playerTurn();
+
+        }
+else
 {
-	System.out.println("Welcome to TicTacToe");
-	TicTacToe tt=new TicTacToe();
-	tt.assignLetter();
-	tt.toss();
-	char[][]gameboard={
-			 	{' ', '|',' ','|',' '},
-				{'_','+','_','+','_'},
-				{' ', '|',' ','|',' '},
-				{'_','+','_','+','_'},
-				{' ', '|',' ','|',' '}
-			};
-	Scanner sc=new Scanner(System.in);
-	while(true)
-	{
-	System.out.println("Enter the number (1-9):");
-	 int position=sc.nextInt();
-	// System.out.println(position);
-	 
-	  tt.placePieace(gameboard,position,"player");
-	  tt.resetBoard(gameboard);
-	  String result=checkWin();
-	  System.out.println(result);
-	  }
-	}
+        computerTurn();
+    }
+}
+//CHECK WINNER FUNCTION
+public static void check_winner() 
+{
+    for (int i = 0; i < 3; i++) 
+    {
+        int j = 0;
+        // for (int j = 0; j < 3; j++) {
+        char Horizontal[] = { board[i][j], board[i][j + 1], board[i][j + 2] };
+        char vertical[] = { board[j][i], board[j + 1][i], board[j + 2][i] };
+        char firstDiagonal[] = { board[0][0], board[1][1], board[2][2] };
+        char secondDiagnol[] = { board[0][2], board[1][1], board[2][0] };
+        char player_win[] = { player, player, player };
+        char computer_win[] = { computer, computer, computer };
+        if (Arrays.equals(Horizontal, player_win)) {
+            System.out.println("Player wins");
+            System.exit(0);
+        } else if (Arrays.equals(Horizontal, computer_win))
+        {
+            System.out.println("computer wins");
+            System.exit(0);
+        }
+
+        if (Arrays.equals(vertical, player_win))
+        {
+            System.out.println("Player wins");
+            System.exit(0);
+        }
+        else if (Arrays.equals(vertical, computer_win))
+        {
+            System.out.println("computer wins");
+            System.exit(0);
+        }
+
+        if (Arrays.equals(firstDiagonal, player_win))
+        {
+            System.out.println("Player wins");
+            System.exit(0);
+        } else if (Arrays.equals(firstDiagonal, computer_win))
+        {
+            System.out.println("computer wins");
+            System.exit(0);
+        }
+
+        if (Arrays.equals(secondDiagnol, player_win))
+        {
+            System.out.println("Player wins");
+            System.exit(0);
+        } else if (Arrays.equals(secondDiagnol, computer_win))
+        {
+            System.out.println("computer wins");
+            System.exit(0);
+        }
+    }
+}
+//PLAYER TURN
+public static void playerTurn()
+{
+if (count == 9)
+ {
+        // System.out.println(count);
+        System.exit(0);
+ }
+
+    System.out.println("Enter value of x and y");
+    Scanner scanner = new Scanner(System.in);
+    int x = scanner.nextInt();
+    int y = scanner.nextInt();
+
+    // char space = '-';
+    if (board[x][y] == '-')
+    {
+        System.out.println("Player turn:");
+        board[x][y] = player;
+        display_board();
+        count++;
+        tie_condition();
+        check_winner();
+        computerTurn();
+    }
+    else
+    {
+        System.out.println("Place already occupied:"); //IF THE VALUE IS FILLED THEN IT WILL SHOW THIS MSG
+        playerTurn(); // PLAYER TURN METHOD IS CALL
+    }
+
+}
+public static void computerTurn()
+{
+    if (count == 9) // COUNT TILL 9 FOR THW COMPUTER
+    {
+        // System.out.println(count);
+        System.exit(0);
+
+    }
+    else
+    {
+    computer_win_condition();
+   // COMPUTER WIN CONDITION IS CALL
+    }
+}
 }
